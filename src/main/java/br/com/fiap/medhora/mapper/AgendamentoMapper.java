@@ -17,7 +17,7 @@ public interface AgendamentoMapper {
     @Mapping(target = "idConsulta", ignore = true)
     AgendamentoEntity requestToEntity(AgendamentoRequest request);
 
-    List<ConsultasResponse> entityToResponse(List<AgendamentoEntity> entity);
+    List<ConsultasResponse> entitysToResponses(List<AgendamentoEntity> entity);
 
     ConsultasResponse entityToResponse (AgendamentoEntity entity);
 }

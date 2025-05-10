@@ -45,7 +45,7 @@ public class AgendamentoServiceImpl implements AgendamentoServicePort {
     @Override
     public List<ConsultasResponse> listarTodasConsultas() {
         List<AgendamentoEntity> consultas = repository.findAll();
-        return AgendamentoMapper.INSTANCE.entityToResponse(consultas);
+        return AgendamentoMapper.INSTANCE.entitysToResponses(consultas);
     }
 
     @Override
