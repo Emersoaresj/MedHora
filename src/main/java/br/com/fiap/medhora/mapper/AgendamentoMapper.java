@@ -1,6 +1,7 @@
 package br.com.fiap.medhora.mapper;
 import br.com.fiap.medhora.application.request.AgendamentoRequest;
 import br.com.fiap.medhora.application.response.ConsultasResponse;
+import br.com.fiap.medhora.kafka.dto.NotificacaoConsultaDTO;
 import br.com.fiap.medhora.model.AgendamentoEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

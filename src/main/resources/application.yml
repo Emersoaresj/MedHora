@@ -5,7 +5,21 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD:emerson01}
     driver-class-name: org.postgresql.Driver
   kafka:
-    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS}
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
+    consumer:
+      group-id: notificacao-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: '*'
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    admin:
+      client-id: kafka-admin-client
+      auto-create-topics: true # Permite a criação automática do tópico se não existir
+
   jpa:
     hibernate:
       ddl-auto: update
