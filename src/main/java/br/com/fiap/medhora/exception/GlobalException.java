@@ -2,8 +2,7 @@ package br.com.fiap.medhora.exception;
 
 import br.com.fiap.medhora.exception.agendamento.AgendamentoExistsException;
 import br.com.fiap.medhora.exception.agendamento.AgendamentoNotExistsException;
-import br.com.fiap.medhora.exception.notificacao.NotificacaoExistsException;
-import br.com.fiap.medhora.exception.notificacao.NotificacaoNotExistsException;
+import br.com.fiap.medhora.exception.notificacao.ErroConsumerKafkaException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -53,21 +52,12 @@ public class GlobalException {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(NotificacaoExistsException.class)
-    public ResponseEntity<Map<String, Object>> handlerNotificacaoExists(NotificacaoExistsException notificacaoExistsException) {
+    @ExceptionHandler(ErroConsumerKafkaException.class)
+    public ResponseEntity<Map<String, Object>> handlerErroConsumerKafka(ErroConsumerKafkaException erroConsumerKafkaException) {
         Map<String, Object> response = new HashMap<>();
-        response.put(MENSAGEM, notificacaoExistsException.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+        response.put(MENSAGEM, erroConsumerKafkaException.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-    @ExceptionHandler(NotificacaoNotExistsException.class)
-    public ResponseEntity<Map<String, Object>> handlerNotificacaoNotExists(NotificacaoNotExistsException notificacaoNotExistsException){
-        Map<String, Object> response = new HashMap<>();
-        response.put(MENSAGEM, notificacaoNotExistsException.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
-
-
 
 
 

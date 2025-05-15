@@ -1,13 +1,13 @@
 package br.com.fiap.medhora.service.impl;
 
+import br.com.fiap.medhora.application.MensagemResponse;
 import br.com.fiap.medhora.application.request.AgendamentoRequest;
 import br.com.fiap.medhora.application.response.ConsultasResponse;
-import br.com.fiap.medhora.application.MensagemResponse;
 import br.com.fiap.medhora.exception.ErroInternoException;
 import br.com.fiap.medhora.exception.agendamento.AgendamentoExistsException;
 import br.com.fiap.medhora.exception.agendamento.AgendamentoNotExistsException;
 import br.com.fiap.medhora.kafka.dto.NotificacaoConsultaDTO;
-import br.com.fiap.medhora.kafka.producer.ConsultaProducerService;
+import br.com.fiap.medhora.kafka.producer.port.ConsultaProducerServicePort;
 import br.com.fiap.medhora.mapper.AgendamentoMapper;
 import br.com.fiap.medhora.model.AgendamentoEntity;
 import br.com.fiap.medhora.repository.AgendamentoRepository;
@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class AgendamentoServiceImpl implements AgendamentoServicePort {
     private AgendamentoRepository repository;
 
     @Autowired
-    private ConsultaProducerService consultaProducerService;
+    private ConsultaProducerServicePort consultaProducerService;
 
     @Transactional
     @Override
@@ -40,12 +39,9 @@ public class AgendamentoServiceImpl implements AgendamentoServicePort {
         if (repository.existsByNomePacienteAndMotivoConsulta(consulta.getNomePaciente(), consulta.getMotivoConsulta())) {
             throw new AgendamentoExistsException(ConstantUtils.CONSULTA_EXISTENTE);
         }
-
         try {
             AgendamentoEntity entity = AgendamentoMapper.INSTANCE.requestToEntity(consulta);
             repository.save(entity);
-
-            // Cria o DTO para enviar para o Kafka
 
             String formattedDate = consulta.getDataHoraConsulta().format(DateTimeFormatter.ISO_DATE_TIME);
 
