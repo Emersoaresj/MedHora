@@ -1,0 +1,12 @@
+type Agendamento {
+    id: ID!
+    dataHora: String!
+    descricao: String
+    paciente: String!
+    medico: String!
+}
+
+type Query {
+    agendamentoPorId(id: ID!): Agendamento
+    agendamentos(nomePaciente: String, somenteFuturos: Boolean = false): [Agendamento]
+}
