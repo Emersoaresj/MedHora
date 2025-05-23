@@ -12,5 +12,8 @@ public interface NotificacaoMapper {
     NotificacaoMapper INSTANCE = Mappers.getMapper(NotificacaoMapper.class);
 
     @Mapping(target = "dataHoraConsulta", ignore = true)
+    @Mapping(target = "idNotificacao", ignore = true)
+    @Mapping(target = "dataEnvioLembrete", ignore = true)
+    @Mapping(target = "status", ignore = true)
     NotificacaoEntity kafkaDtoToEntity(NotificacaoConsultaDTO entity);
 }
