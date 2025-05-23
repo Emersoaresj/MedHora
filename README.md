@@ -43,7 +43,7 @@ Desenvolver um sistema eficiente para gerenciamento de agendamentos médicos e n
 
 5. **Testando a API com o Postman**:
    - Leia a documentação a partir do link:
-[Link para a documentação da Collection do Postman](https://github.com/Emersoaresj/collections-PosTech/blob/main/README.md)
+[Link para a documentação da Collection do Postman](https://github.com/Emersoaresj/collections-MedHora/blob/main/README.md)
    - Você pode importar a coleção do Postman a partir do link abaixo para testar todos os endpoints da API.
 [Link para a Collection do Postman](https://github.com/Emersoaresj/collections-MedHora/blob/main/MedHora.postman_collection.json)
 
