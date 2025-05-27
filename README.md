@@ -57,46 +57,42 @@ Desenvolver um sistema eficiente para gerenciamento de agendamentos médicos e n
 - **PUT** `/agendamentos/{id}` - Atualizar um agendamento existente.
 - **DELETE** `/agendamentos/{id}` - Remover um agendamento.
 
-### Notificações
-- **GET** `/notificacoes` - Listar todas as notificações.
-- **POST** `/notificacoes` - Criar uma nova notificação.
-- **PUT** `/notificacoes/{id}` - Atualizar uma notificação.
-- **DELETE** `/notificacoes/{id}` - Remover uma notificação.
-
 ## Estrutura do Projeto
 
 - **src/main/java/br/com/fiap/medhora**:
 
-  - **application**: Classes de resposta e DTOs.  
+  - **adapter**: Camada de adaptadores e DTOs.  
+    - **controller**: Controladores REST da API.  
+       - `AgendamentoController.java`
+    - **graphql**: Camada responsável pela consulta personalizada via GraphQL
+    - **kafka**: Configurações e consumidores/produtores Kafka.
+   
+  - **application**:  Cadamada de Service e DTOs
+     - **service**: Camada de serviços (negócio e regras da aplicação).
+     - **request**: Camada de DTO da requisição
+     - **response**: Camada de DTO da resposta
     - `MensagemResponse.java`
 
-  - **controller**: Controladores REST da API.  
-    - `AgendamentoController.java`
-
-  - **exception**: Classes para tratamento global e específico de exceções.  
-    - `ErroInternoException.java`  
-    - `GlobalException.java`
-
-  - **graphql**: (em desenvolvimento ou uso futuro)
-
-  - **kafka**: Configurações e consumidores/produtores Kafka.
-
-  - **mapper**: Classes responsáveis pelo mapeamento entre entidades e DTOs.  
-    - `AgendamentoMapper.java`  
-    - `NotificacaoMapper.java`
+  - **infrastructure** : Camada de infra da aplicação.
+     - **config**: Camada de configurações
+     - **graphql**: Camada da implementação e port do serviço do graphQL
+     - **mapper**: Classes responsáveis pelo mapeamento entre entidades e DTOs.  
+       - `AgendamentoMapper.java`  
+       - `NotificacaoMapper.java`
+     - **repository**: Interfaces JPA para acesso a dados.  
+       - `AgendamentoRepository.java`  
+       - `NotificacaoRepository.java`
 
   - **model**: Entidades JPA que representam as tabelas do banco de dados.  
     - `AgendamentoEntity.java`  
     - `NotificacaoEntity.java`
-
-  - **repository**: Interfaces JPA para acesso a dados.  
-    - `AgendamentoRepository.java`  
-    - `NotificacaoRepository.java`
-
-  - **service**: Camada de serviços (negócio e regras da aplicação).
-
-  - **utils**: Classes utilitárias.  
-    - `ConstantUtils.java`
+  
+  - **shared**: Camada de pastas compartilhadas em comum de toda a aplicação
+     - **exception**: Classes para tratamento global e específico de exceções.  
+       - `ErroInternoException.java`  
+       -  `GlobalException.java`
+     - **utils**: Classes utilitárias.  
+       - `ConstantUtils.java`
 
 - **docker-compose.yml** (se existir): Para orquestração dos containers da aplicação e dependências (ex: Kafka, banco de dados).
 
