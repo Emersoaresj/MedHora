@@ -37,7 +37,7 @@ Desenvolver um sistema eficiente para gerenciamento de agendamentos médicos e n
      docker-compose up --build
      ```
 
-3. A aplicação estará disponível em `http://localhost:8080`.
+3. A aplicação estará disponível em `http://localhost:8080` e a documentação do Swagger estará disponível em `http://localhost:8080/swagger-ui/index.html#/`.
 
 4. O banco de dados estará disponível em `localhost:5432` com o usuário e senha configurados no `docker-compose.yml`.
 
